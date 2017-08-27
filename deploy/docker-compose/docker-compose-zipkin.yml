@@ -194,6 +194,11 @@ services:
     read_only: true
     hostname: user-simulator
     command: "-d 60 -r 200 -c 2 -h edge-router"
+  zipkin-storage:
+    image: openzipkin/zipkin-mysql
+    container_name: zipkin-mysql
+    ports:
+      - 3306:3306
   zipkin:
     image: openzipkin/zipkin 
     hostname: zipkin
@@ -208,6 +213,10 @@ services:
     tmpfs:
       - /tmp:rw,noexec,nosuid
     environment:
+      - STORAGE_TYPE=mysql 
+      - MYSQL_HOST=zipkin-mysql
       - reschedule=on-node-failure
     ports:
       - "9411:9411"
+    depends_on:
+      - zipkin-storage
