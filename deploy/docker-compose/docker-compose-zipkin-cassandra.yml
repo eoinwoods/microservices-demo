@@ -195,10 +195,10 @@ services:
     hostname: user-simulator
     command: "-d 60 -r 200 -c 2 -h edge-router"
   zipkin-storage:
-    image: openzipkin/zipkin-mysql
-    container_name: zipkin-mysql
+    image: openzipkin/zipkin-cassandra
+    container_name: zipkin-cassandra
     ports:
-      - 3306:3306
+      - 9042:9042
   zipkin:
     image: openzipkin/zipkin 
     hostname: zipkin
@@ -213,8 +213,9 @@ services:
     tmpfs:
       - /tmp:rw,noexec,nosuid
     environment:
-      - STORAGE_TYPE=mysql 
-      - MYSQL_HOST=zipkin-mysql
+#      - STORAGE_TYPE=mem
+      - STORAGE=cassandra
+      - CASSANDRA_CONTACT_POINTS=zipkin-cassandra
       - reschedule=on-node-failure
     ports:
       - "9411:9411"
