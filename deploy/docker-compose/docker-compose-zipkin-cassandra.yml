@@ -214,7 +214,7 @@ services:
       - /tmp:rw,noexec,nosuid
     environment:
 #      - STORAGE_TYPE=mem
-      - STORAGE=cassandra
+      - STORAGE_TYPE=cassandra
       - CASSANDRA_CONTACT_POINTS=zipkin-cassandra
       - reschedule=on-node-failure
     ports:

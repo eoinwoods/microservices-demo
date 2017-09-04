@@ -214,7 +214,7 @@ services:
       - /tmp:rw,noexec,nosuid
     environment:
 #      - STORAGE_TYPE=mem
-      - STORAGE=mysql
+      - STORAGE_TYPE=mysql
       - MYSQL_HOST=zipkin-mysql
       - reschedule=on-node-failure
     ports:
