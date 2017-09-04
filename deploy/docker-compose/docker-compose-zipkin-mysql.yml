@@ -187,13 +187,6 @@ services:
       - /tmp:rw,noexec,nosuid
     environment:
       - ZIPKIN=zipkin
-  user-sim:
-    image: weaveworksdemos/load-test
-    cap_drop:
-      - all
-    read_only: true
-    hostname: user-simulator
-    command: "-d 60 -r 200 -c 2 -h edge-router"
   zipkin-storage:
     image: openzipkin/zipkin-mysql
     container_name: zipkin-mysql
